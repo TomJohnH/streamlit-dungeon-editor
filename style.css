@@ -1,0 +1,15 @@
+.gamegrid {
+    align-items: flex-end;
+    display: grid;
+    grid-template-columns: repeat(50, 16px);
+    grid-template-rows: repeat(40, 16px);
+    grid-gap: 0px;
+    /* position: absolute; */
+    /* border-style: solid; */
+}
+
+img {
+    /* object-fit: cover; */
+    width: 100%;
+    /* height: 100%; */
+}
