@@ -3,8 +3,6 @@
 import streamlit as st
 import pandas as pd
 
-from pydataset import data
-
 
 @st.cache_data
 def fetch_data(level_name):
