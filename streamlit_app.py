@@ -13,11 +13,6 @@ def fetch_data(level_name):
 # edited_df = st.experimental_data_editor(df)
 df = fetch_data("level1.csv")
 
-st.subheader("The Dungeon level editor")
-level_data = st.experimental_data_editor(df)
-data_as_csv = level_data.to_csv(index=False, header=False).encode("utf-8")
-st.download_button("Download CSV", data_as_csv, "level_edited.csv")
-
 # ----------------------------------------------------
 
 
@@ -60,6 +55,10 @@ tileset = {
 }
 
 
+def path_to_image_html(path):
+    return '<img class="tileset" src="' + path + '" width="30" >'
+
+
 def level_renderer(df, game_objects):
     i = 0
     j = 0
@@ -90,8 +89,27 @@ def level_renderer(df, game_objects):
     return level_html
 
 
-html = level_renderer(level_data.values, "")
+tab1, tab2 = st.tabs(["Editor", "Tilset"])
 
-# display_html = st.empty()
+with tab1:
 
-display_html = st.markdown(html, unsafe_allow_html=True)
+    st.subheader("The Dungeon level editor")
+    level_data = st.experimental_data_editor(df)
+    data_as_csv = level_data.to_csv(index=False, header=False).encode("utf-8")
+    st.download_button("Download CSV", data_as_csv, "level_edited.csv")
+
+    html = level_renderer(level_data.values, "")
+
+    # display_html = st.empty()
+
+    display_html = st.markdown(html, unsafe_allow_html=True)
+
+with tab2:
+
+    df_tileset = pd.DataFrame.from_dict(tileset, orient="index", columns=["look"])
+    # st.dataframe(df_tileset)
+
+    st.markdown(
+        df_tileset.to_html(escape=False, formatters=dict(look=path_to_image_html)),
+        unsafe_allow_html=True,
+    )
