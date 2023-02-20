@@ -11,7 +11,8 @@ def fetch_data(level_name):
 
 
 # edited_df = st.experimental_data_editor(df)
-df = fetch_data("level1.csv")
+if "df" not in st.session_state:
+    st.session_state.df = fetch_data("level1.csv")
 
 # ----------------------------------------------------
 
@@ -94,7 +95,13 @@ tab1, tab2 = st.tabs(["Editor", "Tilset"])
 with tab1:
 
     st.subheader("The Dungeon level editor")
-    level_data = st.experimental_data_editor(df)
+
+    if st.button("clear level"):
+        st.session_state.df = st.session_state.df.replace(
+            regex="[a-zA-Z0-9]+", value="E"
+        )
+
+    level_data = st.experimental_data_editor(st.session_state.df)
     data_as_csv = level_data.to_csv(index=False, header=False).encode("utf-8")
     st.download_button("Download CSV", data_as_csv, "level_edited.csv")
 
@@ -103,6 +110,7 @@ with tab1:
     # display_html = st.empty()
 
     display_html = st.markdown(html, unsafe_allow_html=True)
+
 
 with tab2:
 
