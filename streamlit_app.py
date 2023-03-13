@@ -3,6 +3,8 @@
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(layout="wide")
+
 
 @st.cache_data
 def fetch_data(level_name):
@@ -11,8 +13,15 @@ def fetch_data(level_name):
 
 
 # edited_df = st.experimental_data_editor(df)
-if "df" not in st.session_state:
-    st.session_state.df = fetch_data("level1.csv")
+
+
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    st.session_state.df = pd.read_csv(uploaded_file)
+if uploaded_file is None:
+    if "df" not in st.session_state:
+        st.session_state.df = fetch_data("level1.csv")
+
 
 # ----------------------------------------------------
 
@@ -100,16 +109,17 @@ with tab1:
         st.session_state.df = st.session_state.df.replace(
             regex="[a-zA-Z0-9]+", value="E"
         )
+    col1, col2 = st.columns(2)
+    with col2:
+        level_data = st.experimental_data_editor(st.session_state.df)
+        data_as_csv = level_data.to_csv(index=False, header=False).encode("utf-8")
+        st.download_button("Download CSV", data_as_csv, "level_edited.csv")
+    with col1:
+        html = level_renderer(level_data.values, "")
 
-    level_data = st.experimental_data_editor(st.session_state.df)
-    data_as_csv = level_data.to_csv(index=False, header=False).encode("utf-8")
-    st.download_button("Download CSV", data_as_csv, "level_edited.csv")
+        # display_html = st.empty()
 
-    html = level_renderer(level_data.values, "")
-
-    # display_html = st.empty()
-
-    display_html = st.markdown(html, unsafe_allow_html=True)
+        display_html = st.markdown(html, unsafe_allow_html=True)
 
 
 with tab2:
