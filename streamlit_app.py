@@ -105,22 +105,24 @@ with tab1:
 
     st.subheader("The Dungeon level editor")
 
-    if st.button("clear level"):
-        st.session_state.df = st.session_state.df.replace(
-            regex="[a-zA-Z0-9]+", value="E"
-        )
     col1, col2 = st.columns(2)
     with col2:
-        level_data = st.experimental_data_editor(st.session_state.df)
+        level_data = st.experimental_data_editor(
+            st.session_state.df, use_container_width=True
+        )
         data_as_csv = level_data.to_csv(index=False, header=False).encode("utf-8")
         st.download_button("Download CSV", data_as_csv, "level_edited.csv")
+
     with col1:
         html = level_renderer(level_data.values, "")
 
         # display_html = st.empty()
 
         display_html = st.markdown(html, unsafe_allow_html=True)
-
+        if st.button("clear level"):
+            st.session_state.df = st.session_state.df.replace(
+                regex="[a-zA-Z0-9]+", value="E"
+            )
 
 with tab2:
 
