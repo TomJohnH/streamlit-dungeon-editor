@@ -6,7 +6,9 @@
     grid-gap: 0px;
     /* position: absolute; */
     /* border-style: solid; */
+    overflow-y: scroll;
 }
+
 
 img:not(.tileset) {
     /* object-fit: cover; */
