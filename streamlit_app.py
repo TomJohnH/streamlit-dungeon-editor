@@ -14,7 +14,7 @@ def fetch_data(level_name):
 
 # edited_df = st.experimental_data_editor(df)
 
-
+st.subheader("The Dungeon level editor")
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
     st.session_state.df = pd.read_csv(uploaded_file)
@@ -103,15 +103,16 @@ tab1, tab2 = st.tabs(["Editor", "Tilset"])
 
 with tab1:
 
-    st.subheader("The Dungeon level editor")
-
     col1, col2 = st.columns(2)
     with col2:
         level_data = st.experimental_data_editor(
-            st.session_state.df, use_container_width=True
+            st.session_state.df, use_container_width=True, height=620
         )
         data_as_csv = level_data.to_csv(index=False, header=False).encode("utf-8")
         st.download_button("Download CSV", data_as_csv, "level_edited.csv")
+        st.caption(
+            "To edit the level, modify the table cells. All possible tile names are presented in the Tilset tab."
+        )
 
     with col1:
         html = level_renderer(level_data.values, "")
@@ -119,7 +120,7 @@ with tab1:
         # display_html = st.empty()
 
         display_html = st.markdown(html, unsafe_allow_html=True)
-        if st.button("clear level"):
+        if st.button("Clear Level"):
             st.session_state.df = st.session_state.df.replace(
                 regex="[a-zA-Z0-9]+", value="E"
             )
