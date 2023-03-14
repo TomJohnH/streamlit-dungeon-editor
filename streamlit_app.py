@@ -85,7 +85,14 @@ def level_renderer(df, game_objects):
 
             level_html = (
                 level_html
-                + '<img src="'
+                + "<img "
+                + 'title="'
+                + str(j)
+                + ", "
+                + str(i)
+                + ", "
+                + y
+                + '" src="'
                 + tileset[y]  # tilset_tile
                 + '" style="grid-column-start: '
                 + str(j + 1)
