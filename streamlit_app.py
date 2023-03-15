@@ -156,7 +156,7 @@ with tab1:
 
         # display_html = st.empty()
 
-        display_html = st.markdown(html, unsafe_allow_html=True)
+        st.markdown(html, unsafe_allow_html=True)
         if st.button("Clear Level"):
             st.session_state.df = st.session_state.df.replace(
                 regex="[a-zA-Z0-9]+", value="E"
