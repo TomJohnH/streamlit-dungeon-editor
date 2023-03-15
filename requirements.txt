@@ -1,0 +1,1 @@
+https://github.com/LukasMasuch/st-playground/releases/download/data-editor-0.2.1/streamlit-1.18.1-py2.py3-none-any.whl
