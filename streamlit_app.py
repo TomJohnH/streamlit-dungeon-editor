@@ -37,11 +37,6 @@ def level_renderer(df, game_objects):
         j = 0
         for y in x:
 
-            # if y == "FP" and random.uniform(0, 1) > 0.7:
-            #     tilset_tile = tileset["DK"]
-            # else:
-            #     tilset_tile = tileset[y]
-
             level_html = (
                 level_html
                 + "<img "
@@ -78,7 +73,6 @@ tileset = {
     "@": "https://oshi.at/ZMUu/avRY.gif",
     "W": "https://thumbs2.imgbox.com/10/db/7zaxbIP8_t.png",  # wall
     "FP": "https://thumbs2.imgbox.com/29/22/5rTLr6WH_t.png",  # floor_plain
-    # "FP": "https://oshi.at/PQkn/ExtR.png",  # floor 1 tilset 2
     "CAT": "https://raw.githubusercontent.com/TomJohnH/streamlit-dungeon/main/graphics/other/cat.gif",  # cat
     "M": "https://raw.githubusercontent.com/TomJohnH/streamlit-dungeon/main/graphics/other/monster.gif",  # monster, skeleton
     "FS": "https://raw.githubusercontent.com/TomJohnH/streamlit-dungeon/main/graphics/tileset/floor_stain_1.png",
