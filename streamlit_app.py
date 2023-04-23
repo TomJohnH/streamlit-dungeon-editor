@@ -118,7 +118,7 @@ st.subheader("The Dungeon level editor")
 # file upload for ones wanting to upload their own file
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
-    st.session_state.df = pd.read_csv(uploaded_file)
+    st.session_state.df = pd.read_csv(uploaded_file, header=None)
 if uploaded_file is None:
     if "df" not in st.session_state:
         st.session_state.df = fetch_data("level1.csv")
