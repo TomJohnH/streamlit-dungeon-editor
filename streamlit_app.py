@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import game_random_generator
 
 # wide layout
 st.set_page_config(layout="wide")
@@ -157,6 +158,15 @@ with tab1:
             )
 
 # tileset
+
+
+if st.button("generate randomly"):
+    st.session_state.df = game_random_generator.dungeon_df()
+    st.experimental_rerun()
+
+
+
+
 
 with tab2:
 
