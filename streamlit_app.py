@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import game_random_generator
+# import game_random_generator
 
 # wide layout
 st.set_page_config(layout="wide")
