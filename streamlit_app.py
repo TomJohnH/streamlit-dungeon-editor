@@ -29,36 +29,19 @@ def path_to_image_html(path):
     return '<img class="tileset" src="' + path + '" width="30" >'
 
 
-def level_renderer(df, game_objects):
-    i = 0
-    j = 0
+def level_renderer(df, game_objects, tileset):
     level_html = '<div class="container"><div class="gamegrid">'
-    for x in df:  # array from data frame: df.values
-        # st.write(x)
-        j = 0
-        for y in x:
 
-            level_html = (
-                level_html
-                + "<img "
-                + 'title="'
-                + str(j)
-                + ", "
-                + str(i)
-                + ", "
-                + y
-                + '" src="'
-                + tileset[y]  # tilset_tile
-                + '" style="grid-column-start: '
-                + str(j + 1)
-                + "; grid-row-start: "
-                + str(i + 1)
-                + ';">'
+    for i, row in enumerate(df):  # iterate through the rows of the numpy array
+        for j, cell in enumerate(row):
+            level_html += (
+                f'<img title="{j}, {i}, {cell}" src="{tileset[cell]}"'
+                f' style="grid-column-start: {j+1}; grid-row-start: {i+1};">'
             )
-            j = j + 1
-        i = i + 1
-    level_html = level_html + game_objects + "</div></div>"
+    level_html += f'{game_objects}</div></div>'
+
     return level_html
+
 
 
 #################################
@@ -147,7 +130,7 @@ with tab1:
         )
 
     with col1:
-        html = level_renderer(level_data.values, "")
+        html = level_renderer(level_data.values, "",tileset)
 
         # display_html = st.empty()
 
@@ -159,14 +142,9 @@ with tab1:
 
 # tileset
 
-
 if st.button("generate randomly"):
     st.session_state.df = game_random_generator.dungeon_df()
     st.experimental_rerun()
-
-
-
-
 
 with tab2:
 
