@@ -120,7 +120,7 @@ with tab1:
     col1, col2 = st.columns(2)
 
     with col2:
-        level_data = st.experimental_data_editor(
+        level_data = st.data_editor(
             st.session_state.df, use_container_width=True, height=620
         )
         data_as_csv = level_data.to_csv(index=False, header=False).encode("utf-8")
@@ -144,7 +144,7 @@ with tab1:
 
 if st.button("generate randomly"):
     st.session_state.df = game_random_generator.dungeon_df()
-    st.experimental_rerun()
+    st.rerun()
 
 with tab2:
 
